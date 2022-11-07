@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movimiento;
+use App\Models\Tipomovimiento;
 use Illuminate\Http\Request;
 
 /**
@@ -32,7 +33,8 @@ class MovimientoController extends Controller
     public function create()
     {
         $movimiento = new Movimiento();
-        return view('movimiento.create', compact('movimiento'));
+        $tiposMov = Tipomovimiento::all()->pluck('nombre','id');
+        return view('movimiento.create', compact('movimiento','tiposMov'));
     }
 
     /**
@@ -73,8 +75,8 @@ class MovimientoController extends Controller
     public function edit($id)
     {
         $movimiento = Movimiento::find($id);
-
-        return view('movimiento.edit', compact('movimiento'));
+        $tiposMov = Tipomovimiento::all()->pluck('nombre','id');
+        return view('movimiento.edit', compact('movimiento','tiposMov'));
     }
 
     /**

@@ -1,27 +1,29 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('template_title')
-    {{ $producto->name ?? 'Show Producto' }}
-@endsection
+@section('title', 'Info Productos')
+
+@section('content_header')
+    <h2 class="h4">Productos::Info</h2>
+@stop
 
 @section('content')
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card card-primary">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Producto</span>
+                            <span class="card-title">Datos del Producto</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('productos.index') }}"> Back</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('productos.index') }}"><i class="fas fa-arrow-circle-left"></i> Volver</a>
                         </div>
                     </div>
 
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Codigo:</strong>
+                            <strong>Código:</strong>
                             {{ $producto->codigo }}
                         </div>
                         <div class="form-group">
@@ -29,11 +31,11 @@
                             {{ $producto->nombre }}
                         </div>
                         <div class="form-group">
-                            <strong>Precioventa:</strong>
+                            <strong>Precio Venta:</strong>
                             {{ $producto->precioVenta }}
                         </div>
                         <div class="form-group">
-                            <strong>Minimostock:</strong>
+                            <strong>Mínimo Stock:</strong>
                             {{ $producto->minimoStock }}
                         </div>
                         <div class="form-group">
@@ -41,8 +43,8 @@
                             {{ $producto->activo }}
                         </div>
                         <div class="form-group">
-                            <strong>Categoriaproducto Id:</strong>
-                            {{ $producto->categoriaProducto_id }}
+                            <strong>Categoria:</strong>
+                            {{ $producto->categoriaProducto->nombre }}
                         </div>
 
                     </div>

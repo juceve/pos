@@ -52,6 +52,7 @@ class ProdloteController extends Controller
         $movimiento = new Movimiento();
         $movimiento->fecha = now();
         $movimiento->concepto = $request->concepto;
+        $movimiento->monto = $request->monto;
         $movimiento->tipomovimiento_id = 1;  
         $movimiento->user_id = auth()->id();
         $movimiento->save();
@@ -104,8 +105,12 @@ class ProdloteController extends Controller
      */
     public function update(Request $request, Prodlote $prodlote)
     {
-        request()->validate(Prodlote::$rules);
-
+        request()->validate(Prodlote::$rules);       
+        $movimiento = Movimiento::find($request->movimiento_id);             
+        $movimiento->concepto = $request->concepto . "[MOD]";
+        $movimiento->monto = $request->monto;
+        $movimiento->user_id = auth()->id();
+        $movimiento->save();
         $prodlote->update($request->all());
 
         return redirect()->route('prodlotes.index')

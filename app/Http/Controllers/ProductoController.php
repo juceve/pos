@@ -50,9 +50,10 @@ class ProductoController extends Controller
   
     public function edit($id)
     {
+        $catProd = Categoriaproducto::all()->pluck('nombre','id');
         $producto = Producto::find($id);
 
-        return view('producto.edit', compact('producto'));
+        return view('producto.edit', compact('producto','catProd'));
     }
 
    

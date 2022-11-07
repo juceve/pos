@@ -10,16 +10,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <div class="card">
+            <div class="card card-info">
                 <div class="card-header">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
 
                         <span id="card_title">
-                            {{ __('Prodlote') }}
+                            LISTADO DE LOTES
                         </span>
 
                         <div class="float-right">
-                            <button class="btn btn-primary btn-sm float-right" data-placement="left" data-toggle="modal"
+                            <button class="btn btn-info btn-sm float-right" data-placement="left" data-toggle="modal"
                                 data-target="#modalCreate">
                                 <i class="fas fa-plus"></i> Nuevo
                             </button>
@@ -34,9 +34,9 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table" id="dataTable">
                             <thead class="thead">
-                                <tr>
+                                <tr class="table-info">
                                     <th>No</th>
 
                                     <th>FEC. INGRESO</th>
@@ -58,10 +58,11 @@
                                     <td>{{ $prodlote->movimiento_id }}</td>
 
                                     <td>
-                                        <form class="deleted" action="{{ route('prodlotes.destroy',$prodlote->id) }}" method="POST">
+                                        <form class="deleted" action="{{ route('prodlotes.destroy',$prodlote->id) }}"
+                                            method="POST">
                                             <a class="btn btn-sm btn-primary "
                                                 href="{{ route('prodlotes.show',$prodlote->id) }}" title="Ver"><i
-                                                    class="fa fa-fw fa-eye" ></i></a>
+                                                    class="fa fa-fw fa-eye"></i></a>
                                             <a class="btn btn-sm btn-success"
                                                 href="{{ route('prodlotes.edit',$prodlote->id) }}" title="Editar"><i
                                                     class="fa fa-fw fa-edit"></i></a>
@@ -77,8 +78,12 @@
                         </table>
                     </div>
                 </div>
+
+                {{-- <div class="card-body">
+                    @livewire('prodlotes.tabla')
+                </div> --}}
             </div>
-            {!! $prodlotes->links() !!}
+
         </div>
     </div>
 </div>
@@ -100,13 +105,15 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">Fecha de Ingreso</label>
-                                <input type="date" id="fecha" name="fecha" class="form-control form-control-sm" required>
+                                <input type="date" id="fecha" name="fecha" class="form-control form-control-sm"
+                                    required>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">Producto</label>
-                                <select name="producto_id" id="producto_id" class="Select2" style="width: 100%" required>
+                                <select name="producto_id" id="producto_id" class="Select2" style="width: 100%"
+                                    required>
                                     <option value="">Seleccione un producto</option>
                                     @if ($productos->count()>0)
                                     @foreach ($productos as $producto)
@@ -116,11 +123,6 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Concepto</label>
-                        <input type="text" class="form-control form-control-sm" name="concepto" id="concepto"
-                            placeholder="Concepto de la operación" required>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6">
@@ -132,12 +134,30 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="">Vencimiento</label>
+                                <label for="">Fec. Vencimiento</label>
                                 <input type="date" id="vencimiento" name="vencimiento"
                                     class="form-control form-control-sm" required>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="">Concepto</label>
+                                <input type="text" class="form-control form-control-sm" name="concepto" id="concepto"
+                                    placeholder="Concepto de la operación" required>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="">Monto Bs.</label>
+                                <input type="number" id="monto" name="monto" step="0.01"
+                                    class="form-control form-control-sm" placeholder="0" value="">
+                            </div>
+                        </div>
+                    </div>
+
+
                     <hr>
                     <div class="form-group text-right">
                         <button type="button" class="btn btn-secondary px-5" data-dismiss="modal">Cerrar</button>
@@ -167,6 +187,11 @@
 @endif
 <script>
     $(document).ready(function (e) {
+        $('#dataTable').DataTable({
+            "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        },
+        });
         $('.Select2').select2({
         dropdownParent: $('#modalCreate .modal-body')
     });
@@ -223,4 +248,7 @@
             })
         });
 </script>
+@endsection
+@section('js')
+
 @endsection

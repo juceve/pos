@@ -12,7 +12,7 @@
     <div class="container-fluid" style="overflow: hidden;">
         <div class="row">
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card card-primary">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 

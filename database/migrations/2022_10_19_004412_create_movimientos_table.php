@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->string('concepto');
             $table->foreignId('tipomovimiento_id')->constrained();  
+            $table->decimal('monto',10,2)->nullable();
             $table->foreignId('user_id')->constrained();
             $table->boolean('estado')->default(true);
             $table->timestamps();
